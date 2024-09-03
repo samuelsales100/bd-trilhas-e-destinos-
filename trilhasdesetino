@@ -1,0 +1,58 @@
+Create database TrilhasDestino;
+
+use TrilhasDestino;
+
+create table Clientes(
+id_cliente int primary key auto_increment,
+nome varchar(255),
+sobrenome varchar(255),
+email varchar(255),
+telefone varchar(20),
+endereco varchar(255)
+);
+
+create table Destinos(
+id_destino int primary key auto_increment,
+nome_destino varchar(255),
+descricao text,
+preco decimal (10, 2)
+);
+
+create table Pacotes(
+id_pacote int primary key auto_increment,
+nome_pacote varchar(255),
+descricao text,
+preco decimal(10, 2),
+id_destino int,
+foreign key (id_destino) references Destinos(id_destino)
+);
+
+create table Reservas(
+id_reserva int primary key auto_increment,
+id_cliente int,
+id_pacote int,
+data_reserva date,
+status varchar(20),
+foreign key (id_cliente) references Clientes(id_cliente),
+foreign key (id_pacote) references Pacotes(id_pacote)
+);
+
+create table Pagamentos (
+id_pagamento int primary key auto_increment,
+id_reserva int,
+valor decimal(10, 2),
+data_pagamento date,
+foreign key (id_reserva) references Reservas(id_reserva)
+);
+
+INSERT INTO Clientes (nome, sobrenome, email, telefone, endereco) VALUES
+('João', 'Silva', 'joao.silva@example.com', '123456789', 'Rua 1, 123'),
+('Maria', 'Souza', 'maria.souza@example.com', '987654321', 'Rua 2, 456'),
+('Pedro', 'Oliveira', 'pedro.oliveira@example.com', '111222333', 'Rua 3, 789'),
+('Ana', 'Santos', 'ana. santos@example.com', '444555666', 'Rua 4, 012'),
+('Luiz', 'Gomes', 'luiz.gomes@example.com', '777888999', 'Rua 5, 345'),
+('Beatriz', 'Rocha', 'beatriz.rocha@example.com', '222333444', 'Rua 6, 678'),
+('Carlos', 'Mendes', 'carlos.mendes@example.com', '555666777', 'Rua 7, 901'),
+('Eduardo', 'Ferreira', 'eduardo.ferreira@example.com', '888999000', 'Rua 8, 234'),
+('Gabriela', 'Lima', 'gabriela.lima@example.com', '333444555', 'Rua 9, 567'),
+('Hugo', 'Araújo', 'hugo.araujo@example.com', '666777888', 'Rua 10, 890');
